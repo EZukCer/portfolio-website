@@ -10,6 +10,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     background: var(--background);
@@ -17,6 +21,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     line-height: 1.6;
 }
+
+/* Layout */
 
 .container {
     width: min(100% - 3rem, 1000px);
@@ -26,7 +32,7 @@ body {
     flex-direction: column;
 }
 
-/* Header */
+/* Header / Navigation */
 
 .site-header {
     display: flex;
@@ -47,17 +53,54 @@ body {
     color: var(--accent);
 }
 
-.status {
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.site-nav a {
+    position: relative;
     color: var(--muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
-/* Hero */
-
-.hero {
-    max-width: 720px;
-    padding: 8rem 0 6rem;
+.site-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.45rem;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.2s ease;
 }
+
+.site-nav a:hover {
+    color: var(--text);
+}
+
+.site-nav a:hover::after {
+    transform: scaleX(1);
+}
+
+.site-nav a.active {
+    color: var(--text);
+}
+
+.site-nav a.active::after {
+    transform: scaleX(1);
+}
+
+.site-nav a span {
+    font-size: 0.8rem;
+}
+
+/* Typography */
 
 .eyebrow {
     margin: 0 0 1.25rem;
@@ -79,11 +122,22 @@ h1 span {
     color: var(--muted);
 }
 
+h2 {
+    line-height: 1.2;
+}
+
+/* Homepage Hero */
+
+.hero {
+    max-width: 720px;
+    padding: 8rem 0 6rem;
+}
+
 .intro {
     max-width: 620px;
     margin: 2rem 0 1rem;
-    font-size: 1.2rem;
     color: #d5d5d5;
+    font-size: 1.2rem;
 }
 
 .construction {
@@ -120,7 +174,7 @@ h1 span {
     font-size: 0.9rem;
 }
 
-/* About / Content Pages */
+/* Content Pages */
 
 .page-content {
     max-width: 720px;
@@ -137,6 +191,138 @@ h1 span {
     margin: 0 0 1.5rem;
     color: var(--muted);
     font-size: 1.05rem;
+}
+
+/* Contact */
+
+.contact-page {
+    max-width: 760px;
+}
+
+.contact-form {
+    margin-top: 3rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 0;
+    padding: 0.9rem 1rem;
+    background: #111111;
+    color: var(--text);
+    font: inherit;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--accent);
+}
+
+.form-group textarea {
+    min-height: 160px;
+    resize: vertical;
+}
+
+.form-group select {
+    cursor: pointer;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #666666;
+}
+
+.character-count {
+    margin: 0.5rem 0 0;
+    color: var(--muted);
+    font-size: 0.8rem;
+}
+
+/* Contact Button */
+
+.contact-form button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.9rem 1.25rem;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background: var(--accent);
+    color: var(--background);
+}
+
+.contact-form button span {
+    font-size: 0.9rem;
+}
+
+/* Contact Success Message */
+
+.contact-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    color: var(--accent);
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.contact-success h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.contact-success p {
+    margin: 0;
+    color: var(--muted);
 }
 
 /* Footer */
@@ -161,9 +347,14 @@ footer {
         gap: 1rem;
     }
 
-    .status {
-        text-align: right;
-        font-size: 0.75rem;
+    .site-nav {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .site-nav a {
+        font-size: 0.8rem;
     }
 
     .hero {
@@ -184,5 +375,14 @@ footer {
 
     .intro {
         font-size: 1.05rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .contact-success {
+        gap: 1rem;
     }
 }
