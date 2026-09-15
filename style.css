@@ -325,6 +325,51 @@ h2 {
     color: var(--muted);
 }
 
+.contact-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-top: 2rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.error-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid #ff6b6b;
+    border-radius: 50%;
+    color: #ff6b6b;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.contact-error h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+}
+
+.contact-error p {
+    margin: 0;
+    color: var(--muted);
+}
+
+.contact-form button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+@media (max-width: 600px) {
+    .contact-error {
+        gap: 1rem;
+    }
+}
+
 /* Footer */
 
 footer {
