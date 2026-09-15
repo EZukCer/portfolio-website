@@ -37,8 +37,14 @@ body {
 }
 
 .logo {
+    color: var(--text);
     font-weight: 700;
     letter-spacing: -0.02em;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: var(--accent);
 }
 
 .status {
@@ -86,7 +92,12 @@ h1 span {
     color: var(--muted);
 }
 
+/* Links */
+
 .links {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
     margin-top: 2.5rem;
 }
 
@@ -107,6 +118,25 @@ h1 span {
 
 .links span {
     font-size: 0.9rem;
+}
+
+/* About / Content Pages */
+
+.page-content {
+    max-width: 720px;
+    padding: 6rem 0;
+}
+
+.page-content h1 {
+    margin-bottom: 2rem;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+}
+
+.page-content p:not(.eyebrow):not(.intro) {
+    max-width: 650px;
+    margin: 0 0 1.5rem;
+    color: var(--muted);
+    font-size: 1.05rem;
 }
 
 /* Footer */
@@ -140,8 +170,16 @@ footer {
         padding: 6rem 0 4rem;
     }
 
+    .page-content {
+        padding: 5rem 0 4rem;
+    }
+
     h1 {
         font-size: clamp(2.8rem, 15vw, 4.5rem);
+    }
+
+    .page-content h1 {
+        font-size: clamp(2.6rem, 13vw, 4rem);
     }
 
     .intro {
