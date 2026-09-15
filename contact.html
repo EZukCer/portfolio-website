@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me - Erik.dev</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <header class="site-header">
+            <a class="logo" href="index.html">Erik.dev</a>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+                <a
+                    href="https://github.com/EZukCer"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    GitHub <span>↗</span>
+                </a>
+            </nav>
+        </header>
+
+
+        <section class="page-content contact-page">
+            <p class="eyebrow">Contact</p>
+
+            <h1>Contact Me</h1>
+
+            <form class="contact-form" id="contact-form">
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="first-name">First Name</label>
+
+                        <input
+                            type="text"
+                            id="first-name"
+                            name="firstName"
+                            autocomplete="given-name"
+                            maxlength="25"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="last-name">Last Name</label>
+
+                        <input
+                            type="text"
+                            id="last-name"
+                            name="lastName"
+                            autocomplete="family-name"
+                            maxlength="25"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="email">Email</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        autocomplete="email"
+                        maxlength="25"
+                        required
+                    >
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="reason">Reason</label>
+
+                    <select
+                        id="reason"
+                        name="reason"
+                        required
+                    >
+                        <option value="" disabled selected>Select a reason</option>
+                        <option value="project">Project</option>
+                        <option value="work">Work opportunity</option>
+                        <option value="question">Question</option>
+                        <option value="other">Other</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="message">Message</label>
+
+                    <textarea
+                        id="message"
+                        name="message"
+                        rows="7"
+                        maxlength="500"
+                        placeholder="Tell me a little about what you'd like to discuss..."
+                        required
+                    ></textarea>
+
+                    <p class="character-count">
+                        Maximum 500 characters
+                    </p>
+
+                </div>
+
+                <button type="submit">
+                    Send Message <span>→</span>
+                </button>
+
+            </form>
+
+            <div class="contact-success" id="contact-success" hidden>
+                <div class="success-icon" aria-hidden="true">✓</div>
+
+                <div>
+                    <h2>Message successfully sent</h2>
+                    <p>
+                        Thanks for getting in touch. I'll get back to you
+                        within 2–4 days.
+                    </p>
+                </div>
+            </div>
+
+            <div class="links">
+                <a href="index.html">
+                    ← Back home
+                </a>
+            </div>
+        </section>
+
+        <footer>
+            <p>More coming soon.</p>
+        </footer>
+    </main>
+    
+    <script>
+        const form = document.getElementById("contact-form");
+        const success = document.getElementById("contact-success");
+
+        const API_URL = "https://ly3sv1pzs0.execute-api.eu-west-2.amazonaws.com/enquiry";
+
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const data = {
+                firstName: formData.get("firstName"),
+                lastName: formData.get("lastName"),
+                email: formData.get("email"),
+                reason: formData.get("reason"),
+                message: formData.get("message")
+            };
+
+            const submitButton = form.querySelector('button[type="submit"]');
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to send enquiry");
+                }
+
+                form.hidden = true;
+                success.hidden = false;
+
+            } catch (error) {
+                console.error("Contact form error:", error);
+
+                alert("Something went wrong. Please try again.");
+
+                submitButton.disabled = false;
+                submitButton.innerHTML = 'Send Message <span>→</span>';
+            }
+        });
+    </script>
+</body>
+</html>
