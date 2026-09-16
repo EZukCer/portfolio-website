@@ -14,7 +14,7 @@
             <nav class="site-nav" aria-label="Main navigation">
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="active">Contact</a>
                 <a
                     href="https://github.com/EZukCer"
                     target="_blank"
@@ -32,6 +32,18 @@
             <h1>Contact Me</h1>
 
             <form class="contact-form" id="contact-form">
+
+                <div class="form-group honeypot" >
+                    <label for="website">Website</label>
+                    <input
+                        type="text"
+                        id="website"
+                        name="website"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                    >
+                </div>
 
                 <div class="form-row">
 
@@ -163,6 +175,8 @@
     <script>
         const form = document.getElementById("contact-form");
         const success = document.getElementById("contact-success");
+        const errorBox = document.getElementById("contact-error");
+        const errorMessage = document.getElementById("contact-error-message");
 
         const API_URL = "https://ly3sv1pzs0.execute-api.eu-west-2.amazonaws.com/enquiry";
 
@@ -176,7 +190,8 @@
                 lastName: formData.get("lastName"),
                 email: formData.get("email"),
                 reason: formData.get("reason"),
-                message: formData.get("message")
+                message: formData.get("message"),
+                website: formData.get("website")
             };
 
             const submitButton = form.querySelector('button[type="submit"]');
@@ -200,20 +215,19 @@
                 form.hidden = true;
                 success.hidden = false;
 
-            } catch (error) {
-                console.error("Contact form error:", error);
+            } catch (caughtError) {
+                console.error("Contact form error:", caughtError);
 
-                if (error instanceof TypeError) {
+                if (caughtError instanceof TypeError) {
                     errorMessage.textContent =
-                        "We couldn't reach the server. Please check your connection and try again.";
+                        "We couldn't reach the contact service. Please check your internet connection and try again.";
                 } else {
-                    errorMessage.textContent = error.message;
+                    errorMessage.textContent =
+                        `${caughtError.message} If the problem continues, please try again later or contact me through erik@erikthedev.com`;
                 }
 
-                error.hidden = false;
-
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Send Message <span>→</span>';
+                form.hidden = true;
+                errorBox.hidden = false;
             }
         });
     </script>
