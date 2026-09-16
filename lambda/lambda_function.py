@@ -66,7 +66,7 @@ def lambda_handler(event, context):
         if len(last_name) > 25:
             return response(400, "Last name is too long")
 
-        if len(email) > 25:
+        if len(email) > 50:
             return response(400, "Email address is too long")
 
         if len(reason) > 20:
