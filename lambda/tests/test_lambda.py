@@ -355,7 +355,7 @@ def test_email_too_long(mocked_aws):
     table, ses = mocked_aws
 
     event_data = json.loads(valid_event()["body"])
-    event_data["email"] = "a" * 26
+    event_data["email"] = "a" * 51
 
     result = lambda_function.lambda_handler(
         {"body": json.dumps(event_data)},
@@ -371,13 +371,13 @@ def test_email_too_long(mocked_aws):
     ses.send_email.assert_not_called()
 
 
-def test_email_exactly_25_characters(mocked_aws):
+def test_email_exactly_50_characters(mocked_aws):
     table, ses = mocked_aws
 
     event_data = json.loads(valid_event()["body"])
-    event_data["email"] = "a" * 20 + "@b.co"
+    event_data["email"] = "a" * 45 + "@b.co"
 
-    assert len(event_data["email"]) == 25
+    assert len(event_data["email"]) == 50
 
     result = lambda_function.lambda_handler(
         {"body": json.dumps(event_data)},
