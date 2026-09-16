@@ -14,7 +14,7 @@
             <nav class="site-nav" aria-label="Main navigation">
                 <a href="index.html">Home</a>
                 <a href="about.html">About</a>
-                <a href="contact.html">Contact</a>
+                <a href="contact.html" class="active">Contact</a>
                 <a
                     href="https://github.com/EZukCer"
                     target="_blank"
@@ -32,6 +32,18 @@
             <h1>Contact Me</h1>
 
             <form class="contact-form" id="contact-form">
+
+                <div class="form-group honeypot" >
+                    <label for="website">Website</label>
+                    <input
+                        type="text"
+                        id="website"
+                        name="website"
+                        tabindex="-1"
+                        autocomplete="off"
+                        aria-hidden="true"
+                    >
+                </div>
 
                 <div class="form-row">
 
@@ -76,7 +88,7 @@
                         id="email"
                         name="email"
                         autocomplete="email"
-                        maxlength="25"
+                        maxlength="50"
                         required
                     >
 
@@ -137,6 +149,17 @@
                 </div>
             </div>
 
+            <div class="contact-error" id="contact-error" hidden>
+                <div class="error-icon" aria-hidden="true">!</div>
+
+                <div>
+                    <h2>Message could not be sent</h2>
+                    <p id="contact-error-message">
+                        Something went wrong. Please try again.
+                    </p>
+                </div>
+            </div>
+
             <div class="links">
                 <a href="index.html">
                     ← Back home
@@ -152,6 +175,8 @@
     <script>
         const form = document.getElementById("contact-form");
         const success = document.getElementById("contact-success");
+        const errorBox = document.getElementById("contact-error");
+        const errorMessage = document.getElementById("contact-error-message");
 
         const API_URL = "https://ly3sv1pzs0.execute-api.eu-west-2.amazonaws.com/enquiry";
 
@@ -165,7 +190,8 @@
                 lastName: formData.get("lastName"),
                 email: formData.get("email"),
                 reason: formData.get("reason"),
-                message: formData.get("message")
+                message: formData.get("message"),
+                website: formData.get("website")
             };
 
             const submitButton = form.querySelector('button[type="submit"]');
@@ -189,13 +215,19 @@
                 form.hidden = true;
                 success.hidden = false;
 
-            } catch (error) {
-                console.error("Contact form error:", error);
+            } catch (caughtError) {
+                console.error("Contact form error:", caughtError);
 
-                alert("Something went wrong. Please try again.");
+                if (caughtError instanceof TypeError) {
+                    errorMessage.textContent =
+                        "We couldn't reach the contact service. Please check your internet connection and try again.";
+                } else {
+                    errorMessage.textContent =
+                        `${caughtError.message} If the problem continues, please try again later or contact me through erik@erikthedev.com`;
+                }
 
-                submitButton.disabled = false;
-                submitButton.innerHTML = 'Send Message <span>→</span>';
+                form.hidden = true;
+                errorBox.hidden = false;
             }
         });
     </script>
