@@ -2,6 +2,7 @@ import json
 import sys
 from pathlib import Path
 from unittest.mock import Mock
+from bs4 import BeautifulSoup
 
 import pytest
 
@@ -663,3 +664,22 @@ def test_unexpected_error_returns_500(mocked_aws, monkeypatch):
 
     table.put_item.assert_not_called()
     ses.send_email.assert_not_called()
+
+
+
+def test_html_maxlength_matches_lambda():
+    html = Path("contact.html").read_text(encoding="utf-8")
+    soup = BeautifulSoup(html, "html.parser")
+
+    for field, expected_limit in lambda_function.VALIDATION_LIMITS.items():
+        element = soup.find(attrs={"name": field})
+
+        assert element is not None, (
+            f"HTML field '{field}' was not found"
+        )
+
+        assert element.get("maxlength") == str(expected_limit), (
+            f"{field}: HTML maxlength is "
+            f"{element.get('maxlength')}, "
+            f"but Lambda limit is {expected_limit}"
+        )
