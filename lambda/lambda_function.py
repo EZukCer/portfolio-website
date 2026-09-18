@@ -5,6 +5,13 @@ from datetime import datetime, timezone
 
 import boto3
 
+VALIDATION_LIMITS = {
+    "firstName": 25,
+    "lastName": 25,
+    "email": 50,
+    "reason": 20,
+    "message": 500,
+}
 
 dynamodb = boto3.resource("dynamodb", region_name="eu-west-2")
 table = dynamodb.Table("portfolio-website-enquiries")
@@ -57,19 +64,22 @@ def lambda_handler(event, context):
         reason = data["reason"].strip()
         message = data["message"].strip()
 
-        if len(message) > 500:
-            return response(400, "Message must be 500 characters or fewer")
+        if len(message) > VALIDATION_LIMITS["message"]:
+            return response(
+                400,
+                "Message must be 500 characters or fewer"
+            )
 
-        if len(first_name) > 25:
+        if len(first_name) > VALIDATION_LIMITS["firstName"]:
             return response(400, "First name is too long")
 
-        if len(last_name) > 25:
+        if len(last_name) > VALIDATION_LIMITS["lastName"]:
             return response(400, "Last name is too long")
 
-        if len(email) > 50:
+        if len(email) > VALIDATION_LIMITS["email"]:
             return response(400, "Email address is too long")
 
-        if len(reason) > 20:
+        if len(reason) > VALIDATION_LIMITS["reason"]:
             return response(400, "Reason is too long")
 
         email_pattern = r"^[^@\s]+@[^@\s]+\.[^@\s]+$"
