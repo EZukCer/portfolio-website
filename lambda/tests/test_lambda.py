@@ -621,7 +621,7 @@ def test_confirmation_email_is_correct(mocked_aws):
 
     assert "Hi Erik," in body
     assert "Thanks for reaching out through my website." in body
-    assert "within 2–4 days." in body
+    assert "within 4 days." in body
     assert "Best," in body
     assert "Erik" in body
 
@@ -668,7 +668,7 @@ def test_unexpected_error_returns_500(mocked_aws, monkeypatch):
 
 
 def test_html_maxlength_matches_lambda():
-    html = Path("contact.html").read_text(encoding="utf-8")
+    html = Path("site/contact.html").read_text(encoding="utf-8")
     soup = BeautifulSoup(html, "html.parser")
 
     for field, expected_limit in lambda_function.VALIDATION_LIMITS.items():

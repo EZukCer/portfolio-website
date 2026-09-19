@@ -153,7 +153,7 @@ def lambda_handler(event, context):
                             f"Hi {first_name},\n\n"
                             f"Thanks for reaching out through my website.\n\n"
                             f"I've received your message and will get back to you "
-                            f"within 2–4 days.\n\n"
+                            f"within 4 days.\n\n"
                             f"Best,\n"
                             f"Erik\n"
                         ),

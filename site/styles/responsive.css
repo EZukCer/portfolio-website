@@ -1,0 +1,257 @@
+/* General Mobile */
+
+@media (max-width: 600px) {
+
+    /* Container */
+
+    .container {
+        width: min(100% - 2rem, 1000px);
+    }
+
+    /* Site Header */
+
+    .site-header {
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    /* Site Navigation */
+
+    .site-nav {
+        gap: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .site-nav a {
+        font-size: 0.8rem;
+    }
+
+    /* Hero */
+
+    .hero {
+        padding: 6rem 0 4rem;
+    }
+
+    /* Page Content */
+
+    .page-content {
+        padding: 5rem 0 4rem;
+    }
+
+    /* Headings */
+
+    h1 {
+        font-size: clamp(2.8rem, 15vw, 4.5rem);
+    }
+
+    .page-content h1 {
+        font-size: clamp(2.6rem, 13vw, 4rem);
+    }
+
+    /* Intro */
+
+    .intro {
+        font-size: 1.05rem;
+    }
+
+    /* Form Row */
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    /* Contact Messages */
+
+    .contact-success,
+    .contact-error {
+        gap: 1rem;
+    }
+}
+
+
+/* Projects — Tablet */
+
+@media (max-width: 800px) {
+
+    /* Projects Layout */
+
+    .projects-layout {
+        grid-template-columns: 160px minmax(0, 1fr);
+        gap: 2.5rem;
+        margin-top: 3.5rem;
+    }
+
+    /* Project Header */
+
+    .project-header {
+        padding-top: 4rem;
+    }
+}
+
+
+/* Projects — Mobile */
+
+@media (max-width: 650px) {
+
+    /* Projects Layout */
+
+    .projects-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        margin-top: 2.5rem;
+    }
+
+    /* Project Filters */
+
+    .project-filters {
+        position: static;
+    }
+
+    /* Filter Group */
+
+    .filter-group {
+        margin-bottom: 1.5rem;
+    }
+
+    /* Project Cards */
+
+    .project-card {
+        padding: 1.5rem 0;
+    }
+
+    /* Project Card Header */
+
+    .project-card-header {
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .project-card-header h2 {
+        font-size: 1.2rem;
+    }
+
+    /* Project Card Content */
+
+    .project-card-content p {
+        font-size: 0.9rem;
+    }
+
+    /* Project Header */
+
+    .project-header {
+        padding: 3.5rem 0 2.5rem;
+    }
+
+    .project-header h1 {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+
+    /* Project Description */
+
+    .project-description {
+        font-size: 1.05rem;
+    }
+
+    /* Project Figures */
+
+    .project-figure {
+        margin-top: 0.75rem;
+        margin-bottom: 3rem;
+    }
+
+    .project-section .project-figure {
+        margin-top: 2rem;
+        margin-bottom: 0;
+    }
+
+    /* Project Images */
+
+    .project-image,
+    .project-body-image {
+        width: 100%;
+    }
+
+    /* Project Image Title */
+
+    .project-image-title {
+        margin-top: 0.7rem;
+        font-size: 0.8rem;
+    }
+
+    /* Project Image Caption */
+
+    .project-image-caption {
+        margin-top: 0.3rem;
+        font-size: 0.75rem;
+        line-height: 1.5;
+    }
+
+    /* Technologies */
+
+    .project-technologies {
+        padding-bottom: 2.5rem;
+    }
+
+    /* Project Content */
+
+    .project-section {
+        padding: 2.75rem 0;
+    }
+
+    .project-section h2 {
+        font-size: 1.35rem;
+    }
+
+    .project-section p {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+
+    /* Project Navigation */
+
+    .project-navigation {
+        padding-top: 2.75rem;
+    }
+}
+
+
+/* Small Project Screens */
+
+@media (max-width: 500px) {
+
+    /* Project Card Header */
+
+    .project-card-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.35rem;
+    }
+
+    .project-card-header h2 {
+        font-size: 1.2rem;
+    }
+
+    /* Project Card Footer */
+
+    .project-card-footer {
+        gap: 0.75rem;
+    }
+}
+
+
+/* Accessibility — Reduced Motion */
+
+@media (prefers-reduced-motion: reduce) {
+
+    /* Project Cards */
+
+    .project-card,
+    .project-card-header h2,
+    .project-navigation a,
+    .filter-group label,
+    .filter-group select {
+        transition: none;
+    }
+}

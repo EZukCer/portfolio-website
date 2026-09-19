@@ -1,0 +1,93 @@
+{
+    "projects": [
+        {
+            "id": "aws-portfolio",
+            "title": "AWS Portfolio Website",
+            "year": 2026,
+            "type": "Web",
+
+            "technologies": [
+                "AWS",
+                "S3",
+                "CloudFront",
+                "Route 53",
+                "API Gateway",
+                "Lambda",
+                "DynamoDB",
+                "SES",
+                "Python",
+                "JavaScript",
+                "GitHub Actions",
+                "PyTest",
+                "IAM"
+            ],
+
+            "images": [
+                {
+                    "image": "images/aws-portfolio-architecture-overview.png",
+                    "title": "AWS Architecture",
+                    "caption": "Figure 1 — High-level architecture of the portfolio",
+                    "alt": "Architecture diagram showing the AWS services used by the portfolio"
+                }
+            ],
+
+            "description": "My first project built on AWS very same one your currently on, designed to learn the fundamentals of cloud infrastructure while creating a low-maintenance portfolio that costs as little as possible to run. The target was to keep the monthly cost below $5, while still providing an easy way to upload projects and a contact form that automatically emails both me and the person making the enquiry.",
+
+            "body": [
+                {
+                    "title": "What I Did and Why",
+                    "paragraphs": [
+                        "This was my first project built on AWS and was primarily an opportunity to learn how the different services fit together in a real application. I wanted to build something useful at the same time, so the project became my personal portfolio.",
+                        "The main goal was to keep the infrastructure simple, reliable and extremely inexpensive to operate. Rather than running a traditional server, I built the website as a static application hosted on S3 and used serverless AWS services only where they were needed to provide additional functionality.",
+                        "The portfolio also needed two practical features: an easy way to update project content and a contact form that could send enquiries to me while automatically sending a confirmation email to the person who submitted it."
+                    ]
+                },
+
+                {
+                    "title": "Building the Application",
+                    "paragraphs": [
+                        "The website itself is made from HTML, CSS and JavaScript and is hosted from an Amazon S3 bucket. S3 provides the storage for the static files, while CloudFront acts as the public entry point for the website and provides HTTPS and content delivery.",
+                        "For functionality that required backend processing, I used AWS Lambda rather than introducing a traditional server. Lambda's serverless model means there is no server to maintain, while the available free tier makes it suitable for the very small amount of traffic expected from a personal portfolio.",
+                        "The contact form follows the same principle. API Gateway receives the request, Lambda processes and validates it, DynamoDB stores the enquiry temporarily, and Amazon SES handles the email notifications. This allowed me to build a complete backend without running or maintaining a dedicated server."
+                    ]
+                },
+
+                {
+                    "title": "Technical Deep Dive",
+                    "paragraphs": [
+                        "The main website files are stored in a private Amazon S3 bucket. CloudFront sits in front of S3 as the public entry point, using Origin Access Control to retrieve the files without requiring the bucket itself to be publicly accessible. Route 53 manages DNS for the custom domain, erikthedev.com, while CloudFront provides HTTPS using an ACM certificate.",
+                        "The contact form uses a serverless backend built around API Gateway and Lambda. Requests from the website are sent to API Gateway, where throttling provides an additional layer of protection against repeated requests. The form also contains a hidden honeypot field intended to catch simple automated submissions before they reach the rest of the application.",
+                        "API Gateway invokes a Python-based Lambda function. Lambda extracts the JSON request body and performs a second round of validation rather than trusting the browser. This ensures that incoming data is treated as untrusted and must meet the requirements before it is processed into DynamodDB.",
+                        "Valid enquiries are stored in DynamoDB with a 30-day retention period. The Lambda function also calls Amazon SES to send an automatic notification email to me and a confirmation email to the person who submitted the form. This keeps the contact system completely serverless while keeping the overall running cost extremely low, to the point where it is almost negligible."
+                    ]
+                },
+
+                {
+                    "title": "CI/CD and Deployment",
+                    "paragraphs": [
+                        "I also implemented a CI/CD pipeline using GitHub Actions, with separate development and main branches. Changes are automatically tested using PyTest before deployment, helping to identify issues before they reach the production. The tests cover areas such as edge cases and logic errors, while also ensuring that the JavaScript form validation remains consistent with the Lambda-side validation, preventing discrepancies between client-side and server-side validation.",
+                        "GitHub Actions authenticates with AWS using an IAM role rather than storing long-lived AWS access keys within GitHub. The deployment role follows the principle of least privilege and is restricted to only the AWS resources required by the application. Once the tests have successfully passed and changes are merged into the main branch, the workflow automatically deploys the website files to S3 and uploads the Lambda function along with its required dependencies."
+                    ]
+                },
+
+                {
+                    "title": "Monitoring and Cost Control",
+                    "paragraphs": [
+                        "Alongside the application itself, I set up AWS monitoring and budgets to keep track of usage and costs. The main goal was to make the application as difficult to abuse as possible, but if someone did manage to get around the other protections and cause a lot of unexpected usage, there is a hard spending limit in place to help prevent costs from getting out of control. It also gives me a better idea of what the infrastructure is actually costing to run."
+                    ]
+                },
+
+                {
+                    "title": "What I Learnt",
+                    "paragraphs": [
+                        "This was my first real introduction to the AWS ecosystem. I learned how to navigate the AWS console, create and configure services, work with databases, and understand how IAM roles and policies control access between different parts of an application.",
+                        "One of the biggest things I took away from the project was understanding how the different AWS services fit together. Before starting, I mostly thought of services like S3, Lambda and DynamoDB as separate tools. Building the portfolio showed me how they can be combined to build a complete application and the expected workflow on cloud platform",
+                        "I also started to appreciate that building an application isn't just about getting it to work. Things like cost, security and maintenance have to be considered as well. Using managed and serverless services meant there was very little infrastructure for me to maintain, while also keeping the expected running costs extremely low.",
+                        "Setting up monitoring and AWS Budgets was another useful part of the project. It made me think about what could happen after deployment rather than just focusing on whether everything worked during development. Things like unexpected traffic, a service being abused, or a mistake in the configuration could all lead to higher costs, and because this was my own money, I treated the costs in much the same way I would if I were managing a client's budget. Having monitoring and budgets in place gave me a way to keep track of usage and make sure there weren't any unexpected costs.",
+                        "Going forward, one of the main things I will take from this project is the importance of considering security and cost protection from the beginning. Least-privilege access, preventing abuse, and having safeguards against unexpected costs will be priorities I consider before putting future projects into production."
+                    ]
+                }
+            ]
+        }
+    ]
+}
