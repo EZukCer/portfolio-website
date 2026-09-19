@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projects</title>
+
+    <link rel="stylesheet" href="../style.css">
+    
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div id="navbar"></div>
+
+        <section class="page-content projects-page">
+
+            <p class="eyebrow">Projects</p>
+            <h1>Things I've built.</h1>
+
+            <div class="projects-layout">
+
+                <aside class="project-filters">
+
+                    <h2>Filter</h2>
+
+                    <div class="filter-group">
+
+                        <h3>Technologies</h3>
+
+                        <div id="technology-filters"></div>
+
+                    </div>
+
+
+                    <div class="filter-group">
+
+                        <h3>Type</h3>
+
+                        <div id="type-filters"></div>
+
+                    </div>
+
+
+                    <div class="filter-group">
+
+                        <h3>Sort by</h3>
+
+                        <select id="project-sort">
+                            <option value="newest">Newest</option>
+                            <option value="oldest">Oldest</option>
+                            <option value="az">A-Z</option>
+                            <option value="za">Z-A</option>
+                        </select>
+
+                    </div>
+
+                </aside>
+
+                <div
+                    class="projects-list"
+                    id="projects-list"
+                >
+                    <p>Loading projects...</p>
+                </div>
+
+            </div>
+
+        </section>
+
+        <div id="footer"></div>
+
+    </main>
+
+
+    <script src="../scripts/components.js"></script>
+    <script src="projects.js"></script>
+
+</body>
+</html>

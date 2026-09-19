@@ -3,27 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Me - Erik.dev</title>
+    <title>Contact Me</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <main class="container">
-        <header class="site-header">
-            <a class="logo" href="index.html">Erik.dev</a>
-
-            <nav class="site-nav" aria-label="Main navigation">
-                <a href="index.html">Home</a>
-                <a href="about.html">About</a>
-                <a href="contact.html" class="active">Contact</a>
-                <a
-                    href="https://github.com/EZukCer"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    GitHub <span>↗</span>
-                </a>
-            </nav>
-        </header>
+        
+        <div id="navbar"></div>
 
 
         <section class="page-content contact-page">
@@ -145,7 +131,7 @@
                     <h2>Message successfully sent</h2>
                     <p>
                         Thanks for getting in touch. I'll get back to you
-                        within 2–4 days.
+                        within 4 days.
                     </p>
                 </div>
             </div>
@@ -168,69 +154,12 @@
             </div>
         </section>
 
-        <footer>
-            <p>More coming soon.</p>
-        </footer>
+        <div id="footer"></div>
+        
     </main>
     
-    <script>
-        const form = document.getElementById("contact-form");
-        const success = document.getElementById("contact-success");
-        const errorBox = document.getElementById("contact-error");
-        const errorMessage = document.getElementById("contact-error-message");
+    <script src="scripts/components.js"></script>
+    <script src="scripts/contact.js"></script>
 
-        const API_URL = "https://ly3sv1pzs0.execute-api.eu-west-2.amazonaws.com/enquiry";
-
-        form.addEventListener("submit", async function (event) {
-            event.preventDefault();
-
-            const formData = new FormData(form);
-
-            const data = {
-                firstName: formData.get("firstName"),
-                lastName: formData.get("lastName"),
-                email: formData.get("email"),
-                reason: formData.get("reason"),
-                message: formData.get("message"),
-                website: formData.get("website")
-            };
-
-            const submitButton = form.querySelector('button[type="submit"]');
-
-            submitButton.disabled = true;
-            submitButton.textContent = "Sending...";
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(data)
-                });
-
-                if (!response.ok) {
-                    throw new Error("Failed to send enquiry");
-                }
-
-                form.hidden = true;
-                success.hidden = false;
-
-            } catch (caughtError) {
-                console.error("Contact form error:", caughtError);
-
-                if (caughtError instanceof TypeError) {
-                    errorMessage.textContent =
-                        "We couldn't reach the contact service. Please check your internet connection and try again.";
-                } else {
-                    errorMessage.textContent =
-                        `${caughtError.message} If the problem continues, please try again later or contact me through erik@erikthedev.com`;
-                }
-
-                form.hidden = true;
-                errorBox.hidden = false;
-            }
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,76 @@
+/* Layout */
+
+.container {
+    width: min(100% - 3rem, 1000px);
+    min-height: 100vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Header / Navigation */
+
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.logo {
+    color: var(--text);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+}
+
+.logo:hover {
+    color: var(--accent);
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+
+/* Homepage Hero */
+
+.hero {
+    max-width: 720px;
+    padding: 8rem 0 6rem;
+}
+
+
+/* Content Pages */
+
+.page-content {
+    max-width: 720px;
+    padding: 6rem 0;
+}
+
+.page-content h1 {
+    margin-bottom: 2rem;
+    font-size: clamp(2.8rem, 7vw, 5rem);
+}
+
+.page-content p:not(.eyebrow):not(.intro) {
+    max-width: 650px;
+    margin: 0 0 1.5rem;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+
+/* Footer */
+
+footer {
+    margin-top: auto;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 0.85rem;
+}
